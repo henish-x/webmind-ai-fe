@@ -1,0 +1,76 @@
+/**
+ * Design tokens — raw values only. Consumed by globals.css's @theme block,
+ * which maps these to Tailwind utility classes. Never reference hex values
+ * directly outside this file; add a token here instead.
+ */
+
+:root {
+  /* Base neutrals */
+  --surface-page: #f6f5f2;
+  --surface-card: #ffffff;
+  --surface-sunken: #efede8;
+  --hairline: #e2e0d9;
+  --hairline-strong: #c8c5bc;
+  --ink-primary: #1e1d1b;
+  --ink-secondary: #5c5a54;
+  --ink-muted: #8a877e;
+
+  /* Support lane (teal) */
+  --support-50: #e4f2ed;
+  --support-100: #bee0d3;
+  --support-500: #0f6e56;
+  --support-700: #0a4e3d;
+
+  /* Sales lane (coral/amber) */
+  --sales-50: #fbeae0;
+  --sales-100: #f3c7ac;
+  --sales-500: #c25a2c;
+  --sales-700: #8a3e1d;
+
+  /* System status */
+  --danger-500: #c43d3d;
+  --warning-500: #b9821a;
+  --success-500: #3e8a5b;
+
+  --shadow-overlay: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  /* Marketing/landing page only — not part of the dashboard's light/dark
+     toggle. The hero and final-CTA sections are always dark regardless of
+     the visitor's system theme, so these are static, not [data-theme]-scoped. */
+  --mkt-ink-950: #14161a;
+  --mkt-cream-on-dark: #f1efea;
+}
+
+/*
+ * Dark mode: standard inversion of neutrals. Lane ramps shift down a stop —
+ * the light-mode 50/100 tint pair becomes a dark, low-saturation tint pair
+ * (so badge fills stay a filled pill rather than glowing), 500 is brightened
+ * so it clears 3:1 against the dark surface for icons/chart lines, and 700
+ * is inverted to a light tint used as text color on the 50/100 fills.
+ */
+[data-theme='dark'] {
+  --surface-page: #17181a;
+  --surface-card: #201f1d;
+  --surface-sunken: #292824;
+  --hairline: #37352f;
+  --hairline-strong: #47453d;
+  --ink-primary: #f1efea;
+  --ink-secondary: #a8a499;
+  --ink-muted: #726f66;
+
+  --support-50: #123b31;
+  --support-100: #1b5645;
+  --support-500: #2fa98c;
+  --support-700: #8fe0ce;
+
+  --sales-50: #3a2216;
+  --sales-100: #55311d;
+  --sales-500: #e8814f;
+  --sales-700: #f5b990;
+
+  --danger-500: #e0645c;
+  --warning-500: #d9a23f;
+  --success-500: #5fb37d;
+
+  --shadow-overlay: 0 2px 8px rgba(0, 0, 0, 0.32);
+}

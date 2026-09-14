@@ -1,0 +1,188 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/ibm-plex-serif/500.css';
+@import '@fontsource/ibm-plex-serif/400-italic.css';
+
+/* Dark mode is toggled via [data-theme="dark"] (see state/useThemeStore.ts),
+   not the OS media query, so `dark:` utilities must key off that attribute. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-serif: 'IBM Plex Serif', ui-serif, Georgia, serif;
+
+  /* Marketing/landing page only — static dark section background, not theme-toggled */
+  --color-mkt-ink-950: var(--mkt-ink-950);
+  --color-mkt-cream: var(--mkt-cream-on-dark);
+
+  --color-surface-page: var(--surface-page);
+  --color-surface-card: var(--surface-card);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-ink-primary: var(--ink-primary);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-muted: var(--ink-muted);
+
+  --color-support-50: var(--support-50);
+  --color-support-100: var(--support-100);
+  --color-support-500: var(--support-500);
+  --color-support-700: var(--support-700);
+
+  --color-sales-50: var(--sales-50);
+  --color-sales-100: var(--sales-100);
+  --color-sales-500: var(--sales-500);
+  --color-sales-700: var(--sales-700);
+
+  --color-danger: var(--danger-500);
+  --color-warning: var(--warning-500);
+  --color-success: var(--success-500);
+
+  /* Type scale — pair with a font-weight utility (font-normal/font-medium) at the call site */
+  --text-page-title: 24px;
+  --text-page-title--line-height: 1.3;
+  --text-section-heading: 18px;
+  --text-section-heading--line-height: 1.35;
+  --text-card-title: 15px;
+  --text-card-title--line-height: 1.4;
+  --text-body: 14px;
+  --text-body--line-height: 1.6;
+  --text-meta: 13px;
+  --text-meta--line-height: 1.5;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.4;
+
+  /* Marketing type scale — mobile-first base per the landing page brief;
+     desktop sizes are applied per-component via a responsive md: override
+     (56px hero / 36px section headline) since Tailwind text tokens can't
+     hold two breakpoint values themselves. */
+  --text-hero: 36px;
+  --text-hero--line-height: 1.15;
+  --text-mkt-headline: 28px;
+  --text-mkt-headline--line-height: 1.2;
+  --text-mkt-subhead: 20px;
+  --text-mkt-subhead--line-height: 1.5;
+  --text-mkt-body: 17px;
+  --text-mkt-body--line-height: 1.65;
+  --text-mkt-caption: 14px;
+  --text-mkt-caption--line-height: 1.4;
+
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-overlay: var(--shadow-overlay);
+
+  --animate-toast-in: toast-in 200ms ease-out;
+  --animate-fade: fade 150ms ease-out;
+
+  @keyframes toast-in {
+    from {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* The hero's two ambient background glows (support/sales lane colors). Each drifts
+   and pulses slowly and independently (different duration + a delay on one) so the
+   motion reads as organic, not a mechanical loop; kept as plain keyframes rather than
+   Tailwind's animate-* theme entries since each needs its own baked-in translate.
+   The site-wide prefers-reduced-motion rule below (0.01ms durations) already covers
+   these, so they don't need their own reduced-motion override. */
+@keyframes hero-glow-support {
+  0%,
+  100% {
+    transform: translate(-78%, -50%) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(-72%, -54%) scale(1.15);
+    opacity: 0.22;
+  }
+}
+@keyframes hero-glow-sales {
+  0%,
+  100% {
+    transform: translate(-22%, -50%) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(-28%, -46%) scale(1.15);
+    opacity: 0.22;
+  }
+}
+.hero-glow-support {
+  animation: hero-glow-support 10s ease-in-out infinite;
+}
+.hero-glow-sales {
+  animation: hero-glow-sales 12s ease-in-out infinite 1.2s;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-hairline);
+  }
+
+  html {
+    color-scheme: light;
+  }
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-surface-page);
+    color: var(--color-ink-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  /* A slim, unobtrusive scrollbar everywhere — the bulky native one (arrow
+     buttons, thick thumb) reads as broken layout in narrow rails like the
+     collapsed sidebar. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-hairline-strong) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-hairline-strong);
+    border-radius: 9999px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
