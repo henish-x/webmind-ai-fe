@@ -1,6 +1,14 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { cn, focusRing } from '@/lib/utils'
+import { InstagramIcon, LinkedInIcon, XIcon } from './BrandIcons'
+
+// Placeholder hrefs — swap in the real profile URLs once they exist.
+const SOCIAL_LINKS: { label: string; href: string; icon: ReactNode }[] = [
+  { label: 'X (Twitter)', href: '#', icon: <XIcon size={16} /> },
+  { label: 'Instagram', href: '#', icon: <InstagramIcon size={16} /> },
+  { label: 'LinkedIn', href: '#', icon: <LinkedInIcon size={16} /> },
+]
 
 const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -57,6 +65,20 @@ export function Footer() {
             <p className="mt-2 max-w-[220px] text-[14px] text-ink-secondary">
               One chatbot that answers questions and catches every buyer.
             </p>
+            <div className="mt-4 flex items-center gap-3">
+              {SOCIAL_LINKS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={cn('text-ink-muted transition-colors hover:text-ink-primary', focusRing, 'rounded-sm')}
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
           {COLUMNS.map((col) => (
             <div key={col.title}>

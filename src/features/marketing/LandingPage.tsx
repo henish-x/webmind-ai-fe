@@ -1,13 +1,16 @@
 import { Navigate } from 'react-router-dom'
 import { useAuthStore } from '@/state/useAuthStore'
+import { ConnectorsSection } from './components/ConnectorsSection'
+import { DashboardKpisSection } from './components/DashboardKpisSection'
 import { Faq } from './components/Faq'
 import { FeatureHighlights } from './components/FeatureHighlights'
 import { FinalCta } from './components/FinalCta'
 import { ForkSection } from './components/ForkSection'
 import { Hero } from './components/Hero'
 import { HowItWorks } from './components/HowItWorks'
-import { InteractiveDemo } from './components/InteractiveDemo'
+import { InboxDemoSection } from './components/InboxDemoSection'
 import { PricingSection } from './components/PricingSection'
+import { SdkEmbedSection } from './components/SdkEmbedSection'
 
 export function LandingPage() {
   const session = useAuthStore((s) => s.session)
@@ -21,7 +24,10 @@ export function LandingPage() {
       <Hero />
       <ForkSection />
       <HowItWorks />
-      <InteractiveDemo />
+      <ConnectorsSection />
+      <DashboardKpisSection />
+      <InboxDemoSection />
+      <SdkEmbedSection />
       <FeatureHighlights />
       <PricingSection />
       <Faq />

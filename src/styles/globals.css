@@ -136,6 +136,16 @@
   animation: hero-glow-sales 12s ease-in-out infinite 1.2s;
 }
 
+/* A near-invisible dot-grid depth cue for light marketing sections — the kind of
+   texture that separates a considered site from a flat single-color background,
+   kept faint enough it never competes with text. Opacity does the subtlety work,
+   not the dot size, so it still reads correctly at any zoom level. */
+.mkt-dot-grid {
+  background-image: radial-gradient(circle, var(--color-ink-primary) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.04;
+}
+
 @layer base {
   * {
     border-color: var(--color-hairline);
